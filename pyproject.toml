@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=80", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nodus-observability-framework"
+version = "0.1.0"
+description = "Single-install observability for AI systems: OTel, Prometheus, logging, request metrics, health router"
+authors = [{ name = "Shawn Knight" }]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.11"
+keywords = ["observability", "opentelemetry", "prometheus", "fastapi", "ai", "nodus"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = ["nodus-observability>=0.1.0"]
+
+[project.optional-dependencies]
+fastapi = ["fastapi>=0.100.0", "prometheus-fastapi-instrumentator>=6.0.0"]
+otel    = ["opentelemetry-api>=1.0.0", "opentelemetry-sdk>=1.0.0",
+           "opentelemetry-instrumentation-fastapi>=0.60b0",
+           "opentelemetry-exporter-otlp-proto-grpc>=1.0.0"]
+metrics = ["prometheus-client>=0.10.0"]
+all     = ["nodus-observability-framework[fastapi,otel,metrics]"]
+dev     = ["pytest>=8.0", "pytest-asyncio>=0.21", "httpx>=0.24.0",
+           "fastapi[standard]>=0.100.0", "prometheus-client>=0.10.0"]
+
+[project.urls]
+Homepage = "https://github.com/Masterplanner25/nodus-observability-framework"
+Repository = "https://github.com/Masterplanner25/nodus-observability-framework"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nodus_observability_framework*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
